@@ -12,5 +12,6 @@ module.exports = {
   plugins: ['@typescript-eslint', 'prettier'],
   rules: {
     'prettier/prettier': ['error', { singleQuote: true }],
+    '@typescript-eslint/no-unused-vars': 'off',
   },
 };
