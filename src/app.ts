@@ -1,4 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
+import dotenv from 'dotenv';
 import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
@@ -7,6 +8,7 @@ import 'express-async-errors';
 
 import userRouter from './routes/user';
 
+dotenv.config();
 const app = express();
 
 app.use(express.json());
