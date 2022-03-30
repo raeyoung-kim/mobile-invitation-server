@@ -6,10 +6,13 @@ import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import 'express-async-errors';
 
+dotenv.config();
+
+import connect from './models';
 import userRouter from './routes/user';
 
-dotenv.config();
 const app = express();
+connect();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
