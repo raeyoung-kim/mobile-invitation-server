@@ -3,7 +3,7 @@ import multer from 'multer';
 import { v4 as uuid } from 'uuid';
 import mime from 'mime-types';
 import multerS3 from 'multer-s3';
-import { s3 } from '../aws';
+import { s3, getSignedUrl } from '../aws';
 
 const storage = multerS3({
   s3,
@@ -25,6 +25,27 @@ const upload = multer({
 });
 
 const router = express.Router();
+
+router.post('/presigned', async (req, res, next) => {
+  try {
+    const { contentTypes } = req.body;
+
+    if (!Array.isArray(contentTypes)) throw new Error('error');
+
+    const presignedData = await Promise.all(
+      contentTypes.map(async (conteType) => {
+        const imageKey = `${uuid()}.${mime.extension(conteType)}`;
+        const key = `image/${imageKey}`;
+        const presigned = await getSignedUrl({ key });
+        return { imageKey, presigned };
+      })
+    );
+
+    res.json(presignedData);
+  } catch (err) {
+    next(err);
+  }
+});
 
 router.post(
   '/image',
