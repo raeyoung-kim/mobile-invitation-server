@@ -11,6 +11,7 @@ dotenv.config();
 import connect from './models';
 import userRouter from './routes/user';
 import uploadRouter from './routes/upload';
+import sampleRouter from './routes/sample';
 
 const app = express();
 connect();
@@ -24,9 +25,10 @@ app.use(morgan('tiny'));
 
 app.use('/user', userRouter);
 app.use('/upload', uploadRouter);
+app.use('/sample', sampleRouter);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
-  res.status(404);
+  next(404);
 });
 
 app.use((error: any, req: Request, res: Response, next: NextFunction) => {
