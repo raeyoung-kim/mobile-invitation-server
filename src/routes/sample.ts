@@ -1,7 +1,45 @@
 import express, { Request, Response, NextFunction } from 'express';
 import SampleMain from '../models/SampleMain';
+import Sample from '../models/Sample';
+import { v4 as uuid } from 'uuid';
 
 const router = express.Router();
+
+router.get('/', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const data = await Sample.findOne({ id: req.query.id });
+    res.json(data);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const result = {
+      id: `${uuid()}`,
+      ...req.body,
+    };
+
+    await Sample.create(result);
+    res.json({
+      result: 'ok',
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put('/', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    console.log(req.body);
+    res.json({
+      result: 'ok',
+    });
+  } catch (err) {
+    next(err);
+  }
+});
 
 router.get('/main', async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -12,11 +50,10 @@ router.get('/main', async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-router.post('/', (req: Request, res: Response, next: NextFunction) => {
+router.get('/user', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    res.json({
-      result: 'ok',
-    });
+    const data = await Sample.find({ userId: req.query.userId });
+    res.json(data);
   } catch (err) {
     next(err);
   }

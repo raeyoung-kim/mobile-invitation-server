@@ -5,9 +5,6 @@ export default function connect() {
     process.env.MONGODB_CONNECT! as string,
     {
       dbName: 'mobile-invitation',
-      // useNewUrlParser: true,
-      // useUnifiedTopology: true,
-      // useFindAndModify: false,
     }! as ConnectOptions
   );
 
