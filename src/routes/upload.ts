@@ -52,9 +52,31 @@ router.post(
   upload.array('image'),
   (req: Request, res: Response, next: NextFunction) => {
     try {
-      console.log('??', req.files);
       res.json({
         result: req.files,
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+router.delete(
+  '/imgae/:id',
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      await s3.deleteObject(
+        {
+          Bucket: 'mobile-invitation',
+          Key: `image/${req.params.id}`,
+        },
+        (err, data) => {
+          if (err) throw err;
+        }
+      );
+
+      res.json({
+        result: 'ok',
       });
     } catch (err) {
       next(err);
