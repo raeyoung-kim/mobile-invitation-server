@@ -62,7 +62,7 @@ router.post(
 );
 
 router.delete(
-  '/imgae/:id',
+  '/image/:id',
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       await s3.deleteObject(

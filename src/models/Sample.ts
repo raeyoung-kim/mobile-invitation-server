@@ -144,27 +144,23 @@ const sampleSchema = new Schema({
   videoUrl: {
     type: String,
   },
-  kakao: {
-    thumbnail: {
-      type: String,
-    },
-    title: {
-      type: String,
-    },
-    description: {
-      type: String,
-    },
+  kakaoThumbnail: {
+    type: String,
   },
-  URL: {
-    thumbnail: {
-      type: String,
-    },
-    title: {
-      type: String,
-    },
-    description: {
-      type: String,
-    },
+  kakaoTitle: {
+    type: String,
+  },
+  kakaoDescription: {
+    type: String,
+  },
+  URLThumbnail: {
+    type: String,
+  },
+  URLTitle: {
+    type: String,
+  },
+  URLDescription: {
+    type: String,
   },
 });
 

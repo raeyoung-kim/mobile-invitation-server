@@ -32,7 +32,7 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
 
 router.put('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    console.log(req.body);
+    await Sample.updateOne({ id: req.body.id }, req.body.data);
     res.json({
       result: 'ok',
     });
