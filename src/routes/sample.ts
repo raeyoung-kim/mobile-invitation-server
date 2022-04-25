@@ -2,6 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import SampleMain from '../models/SampleMain';
 import Sample from '../models/Sample';
 import { v4 as uuid } from 'uuid';
+import { s3 } from '../aws';
 
 const router = express.Router();
 
@@ -40,6 +41,46 @@ router.put('/', async (req: Request, res: Response, next: NextFunction) => {
     next(err);
   }
 });
+
+router.delete(
+  '/:id',
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const data = await Sample.findOne({ id: req.params.id });
+
+      const { mainPhoto, galleryPictures, kakaoThumbnail, URLThumbnail } = data;
+
+      const imgList = [];
+
+      mainPhoto && imgList.push(mainPhoto);
+      kakaoThumbnail && imgList.push(kakaoThumbnail);
+      URLThumbnail && imgList.push(URLThumbnail);
+      galleryPictures?.length && imgList.concat(galleryPictures);
+
+      await Promise.all(
+        imgList.map(async (img) => {
+          const id = img.split('/').slice(-1)[0];
+          await s3.deleteObject(
+            {
+              Bucket: 'mobile-invitation',
+              Key: `image/${id}`,
+            },
+            (err, data) => {
+              if (err) throw err;
+            }
+          );
+        })
+      );
+
+      await Sample.remove({ id: req.params.id });
+      res.json({
+        result: 'ok',
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
 
 router.get('/main', async (req: Request, res: Response, next: NextFunction) => {
   try {

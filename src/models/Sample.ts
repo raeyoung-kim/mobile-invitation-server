@@ -13,35 +13,27 @@ const info = {
   },
   targetNumber: {
     type: String,
-    required: true,
   },
   rank: {
     type: String,
-    required: true,
   },
   fatherName: {
     type: String,
-    required: true,
   },
   isFather: {
     type: Boolean,
-    required: true,
   },
   fatherNumber: {
     type: String,
-    required: true,
   },
   motherName: {
     type: String,
-    required: true,
   },
   isMother: {
     type: Boolean,
-    required: true,
   },
   motherNumber: {
     type: String,
-    required: true,
   },
 };
 
@@ -91,7 +83,6 @@ const sampleSchema = new Schema({
   },
   DetailWeddingAddress: {
     type: String,
-    required: true,
   },
   weddingContact: {
     type: String,
@@ -107,6 +98,9 @@ const sampleSchema = new Schema({
     type: String,
   },
   noticeButtonName: {
+    type: String,
+  },
+  galleryType: {
     type: String,
   },
   galleryPictures: [{ type: String }],
