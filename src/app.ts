@@ -36,6 +36,6 @@ app.use((error: any, req: Request, res: Response, next: NextFunction) => {
   res.status(500);
 });
 
-app.listen(8080, () => {
+app.listen(process.env.PORT || 8080, () => {
   console.log('hello world');
 });
