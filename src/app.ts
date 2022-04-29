@@ -12,6 +12,7 @@ import connect from './models';
 import userRouter from './routes/user';
 import uploadRouter from './routes/upload';
 import sampleRouter from './routes/sample';
+import guestBookRouter from './routes/guestbook';
 import indexRouter from './routes/index';
 
 const app = express();
@@ -28,6 +29,7 @@ app.get('/', indexRouter);
 app.use('/user', userRouter);
 app.use('/upload', uploadRouter);
 app.use('/sample', sampleRouter);
+app.use('/guestbook', guestBookRouter);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   next(404);

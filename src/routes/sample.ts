@@ -24,7 +24,7 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
 
     await Sample.create(result);
     res.json({
-      result: 'ok',
+      message: 'success',
     });
   } catch (err) {
     next(err);
@@ -35,7 +35,7 @@ router.put('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
     await Sample.updateOne({ id: req.body.id }, req.body.data);
     res.json({
-      result: 'ok',
+      message: 'success',
     });
   } catch (err) {
     next(err);
@@ -74,7 +74,7 @@ router.delete(
 
       await Sample.remove({ id: req.params.id });
       res.json({
-        result: 'ok',
+        message: 'success',
       });
     } catch (err) {
       next(err);

@@ -76,7 +76,7 @@ router.delete(
       );
 
       res.json({
-        result: 'ok',
+        message: 'success',
       });
     } catch (err) {
       next(err);
