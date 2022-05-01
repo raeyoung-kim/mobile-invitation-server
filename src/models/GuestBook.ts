@@ -19,6 +19,10 @@ const guestBookSchema = new Schema({
     type: String,
     required: true,
   },
+  date: {
+    type: Date,
+    required: true,
+  },
 });
 
 export default mongoose.model('GuestBook', guestBookSchema);

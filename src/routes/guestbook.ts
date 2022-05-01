@@ -5,8 +5,19 @@ const router = express.Router();
 
 router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const data = await GuestBook.find({ id: req.params.id });
-    res.json(data);
+    const page = Number(req.query.page) - 1 || 0;
+    const count = await GuestBook.count({ id: req.params.id });
+    const limit = Number(req.query.limit) || 4;
+    const totalPage = Math.ceil(count / limit);
+    const data = await GuestBook.find({ id: req.params.id }, null, {
+      limit,
+      skip: page * limit,
+      sort: {
+        date: -1,
+      },
+    });
+
+    res.json({ data, totalPage });
   } catch (err) {
     next(err);
   }
@@ -17,6 +28,7 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
     const password = bcrypt.hashSync(req.body.password, 10);
     await GuestBook.create({
       ...req.body,
+      date: new Date(),
       password,
     });
     res.json({
