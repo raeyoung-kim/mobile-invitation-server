@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import GuestBook from '../models/GuestBook';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 const router = express.Router();
 
 router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
