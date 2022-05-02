@@ -56,10 +56,11 @@ router.delete(
       mainPhoto && imgList.push(mainPhoto);
       kakaoThumbnail && imgList.push(kakaoThumbnail);
       URLThumbnail && imgList.push(URLThumbnail);
-      galleryPictures?.length && imgList.concat(galleryPictures);
+
+      const deleteImgList = imgList.concat(galleryPictures);
 
       await Promise.all(
-        imgList.map(async (img) => {
+        deleteImgList.map(async (img) => {
           const id = img.split('/').slice(-1)[0];
           await s3.deleteObject(
             {
