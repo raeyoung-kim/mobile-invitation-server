@@ -3,6 +3,7 @@ import SampleMain from '../models/SampleMain';
 import Sample from '../models/Sample';
 import { v4 as uuid } from 'uuid';
 import { s3 } from '../aws';
+import GuestBook from '../models/GuestBook';
 
 const router = express.Router();
 
@@ -73,6 +74,7 @@ router.delete(
       );
 
       await Sample.remove({ id: req.params.id });
+      await GuestBook.deleteMany({ id: req.params.id });
       res.json({
         message: 'success',
       });
